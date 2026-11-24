@@ -13,8 +13,10 @@ def main() -> int:
     with open(SRC, "r", encoding="utf-8") as f:
         text = f.read()
     # Guard: the gate is 1-200 chars of UTF-8, not only whitespace, one line.
+    # Measure the entry itself (trailing newline excluded) so the gate
+    # counts the text the judge reads, not the file's line ending.
     stripped = text.strip()
-    if not 1 <= len(text) <= 200 or not stripped or "\n" in stripped:
+    if not 1 <= len(stripped) <= 200 or not stripped or "\n" in stripped:
         print("entry fails gate: must be 1-200 chars, not only whitespace, one line",
               file=sys.stderr)
         return 1
